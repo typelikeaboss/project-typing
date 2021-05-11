@@ -33,7 +33,7 @@ function SignIn({ setUiState, onChange, signIn }) {
         <span
           onClick={() => setUiState("signUp")}
           role="button"
-          className="cursor-pointer text-pink-600"
+          className="cursor-pointer text-pink-600  hover:underline"
         >
           {" "}
           Sign Up.

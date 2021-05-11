@@ -7,6 +7,10 @@ import Profile from "../components/Profile";
 import ForgotPassword from "../components/ForgotPassword";
 import ForgotPasswordSubmit from "../components/ForgotPasswordSubmit";
 import ConfirmSignUp from "../components/ConfirmSignUp";
+import isEmail from "validator/lib/isEmail";
+import isEmpty from "validator/lib/isEmpty";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const [uiState, setUiState] = useState(null);
@@ -15,6 +19,9 @@ function App() {
     password: "",
     authCode: "",
   });
+  const [valid, setValid] = useState(true);
+  const [checkPass, setCheckPass] = useState(true);
+
   const { email, password, authCode } = formState;
 
   useEffect(() => {
@@ -33,34 +40,69 @@ function App() {
   }
 
   function onChange(e) {
+    if (e.target.name === "email" && !isEmail(e.target.value)) {
+      setValid(false);
+      return;
+    }
+    if (e.target.name === "password" && isEmpty(e.target.value)) {
+      // console.log("Please Enter Valid Email Id");
+      setCheckPass(false);
+      return;
+    }
+    setValid(true);
+    setCheckPass(true);
     setFormState({ ...formState, [e.target.name]: e.target.value });
   }
 
   async function signUp() {
+    if (email == "" && password == "") {
+      return toast.error("Please enter email and password");
+    }
+    if (!valid || email == "") {
+      return toast.error("Please enter a valid email");
+    }
+    if (!checkPass || password == "") {
+      return toast.error("Please enter the password");
+    }
     try {
       await Auth.signUp({ username: email, password, attributes: { email } });
       setUiState("confirmSignUp");
     } catch (err) {
-      console.log({ err });
+      toast.error(err.message);
+      // console.log(err);
     }
   }
 
   async function confirmSignUp() {
+    if (authCode == "") {
+      toast.error("Invalid verification code provided, please try again.");
+    }
     try {
       await await Auth.confirmSignUp(email, authCode);
       await Auth.signIn(email, password);
       setUiState("signedIn");
     } catch (err) {
-      console.log({ err });
+      toast.error(err.message);
+      // console.log({ err });
     }
   }
 
   async function signIn() {
+    if (email == "" && password == "") {
+      return toast.error("Please enter email and password");
+    }
+    if (!valid || email == "") {
+      return toast.error("Please enter a valid email");
+    }
+    if (!checkPass || password == "") {
+      return toast.error("Please enter the password");
+    }
     try {
       await Auth.signIn(email, password);
       setUiState("signedIn");
     } catch (err) {
-      console.log({ err });
+      toast.error(err.message);
+      // console.log("error signing in", err);
     }
   }
 
@@ -69,14 +111,20 @@ function App() {
       await Auth.forgotPassword(email);
       setUiState("forgotPasswordSubmit");
     } catch (err) {
-      console.log({ err });
+      toast.error(err.message);
+      // console.log({ err });
     }
   }
 
   async function forgotPasswordSubmit() {
-    await Auth.forgotPasswordSubmit(email, authCode, password);
-    setUiState("signIn");
+    try {
+      await Auth.forgotPasswordSubmit(email, authCode, password);
+      setUiState("signIn");
+    } catch (err) {
+      toast.error(err.message);
+    }
   }
+
   return (
     <div className="bg-gray-50 min-h-screen">
       <div className="flex flex-col items-center">
@@ -87,6 +135,7 @@ function App() {
             </p>
           </div>
           <div className="bg-white py-14 px-16 shadow-form rounded">
+            <ToastContainer />
             {!uiState ||
               (uiState === "loading" && (
                 <p className="font-bold">Loading ...</p>
