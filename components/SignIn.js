@@ -14,7 +14,7 @@ function SignIn({ setUiState, onChange, signIn }) {
           Password
           <span
             onClick={() => setUiState("forgotPassword")}
-            className="ml-20 sm:ml-48 text-blue-500"
+            className="ml-36 sm:ml-48 text-pink-500 cursor-pointer hover:underline"
           >
             Forgot your password?
           </span>

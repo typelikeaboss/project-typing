@@ -1,8 +1,6 @@
-import Input from './Input'
+import Input from "./Input";
 
-function SignUp({
-  setUiState, signUp, onChange
-}) {
+function SignUp({ setUiState, signUp, onChange }) {
   return (
     <>
       <p className="text-3xl font-black">Sign up for an account</p>
@@ -13,26 +11,35 @@ function SignUp({
       <div className="mt-7">
         <p className="text-sm">
           Password
-          <span
-            className="ml-8 sm:ml-48 text-pink-500"
-          >Forgot your password?</span>
-          </p>
-        <Input name="password" onChange={onChange} type="password" />
+          <span className="ml-8 sm:ml-48 text-pink-500">
+            Forgot your password?
+          </span>
+        </p>
+        <Input
+          name="password"
+          onChange={onChange}
+          type="password"
+          className="focus:ring-2 focus:ring-blue-600"
+        />
       </div>
       <button
-        onClick={signUp}  
-        className="text-white w-full mt-10 bg-pink-600 p-3 rounded">
+        onClick={signUp}
+        className="text-white w-full mt-10 bg-pink-600 p-3 rounded"
+      >
         Continue
       </button>
       <p className="mt-12 text-sm font-light">
-      Already have an account?
+        Already have an account?
         <span
           className="cursor-pointer text-pink-600"
-          onClick={() => setUiState('signIn')}
-        > Sign In.</span>
-    </p>
-    </> 
-  )
+          onClick={() => setUiState("signIn")}
+        >
+          {" "}
+          Sign In.
+        </span>
+      </p>
+    </>
+  );
 }
 
-export default SignUp
+export default SignUp;
