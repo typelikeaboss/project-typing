@@ -1,4 +1,4 @@
-import Input from './Input'
+import Input from "./Input";
 
 function FogotPassword({ setUiState, onChange, forgotPassword }) {
   return (
@@ -10,14 +10,18 @@ function FogotPassword({ setUiState, onChange, forgotPassword }) {
       </div>
       <button
         onClick={() => forgotPassword()}
-        className="text-white w-full mt-4 bg-pink-600 p-3 rounded">
+        className="text-white w-full mt-4 bg-pink-600 p-3 rounded"
+      >
         Continue
       </button>
       <button
-      onClick={() => setUiState('signIn')}
-      className="text-sm mt-6 text-pink-500">Cancel</button>
-    </> 
-  )
+        onClick={() => setUiState("signIn")}
+        className="text-sm mt-6 text-pink-500 cursor-pointer hover:underline"
+      >
+        Cancel
+      </button>
+    </>
+  );
 }
 
-export default FogotPassword
+export default FogotPassword;

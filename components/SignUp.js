@@ -9,18 +9,8 @@ function SignUp({ setUiState, signUp, onChange }) {
         <Input onChange={onChange} name="email" />
       </div>
       <div className="mt-7">
-        <p className="text-sm">
-          Password
-          <span className="ml-8 sm:ml-48 text-pink-500">
-            Forgot your password?
-          </span>
-        </p>
-        <Input
-          name="password"
-          onChange={onChange}
-          type="password"
-          className="focus:ring-2 focus:ring-blue-600"
-        />
+        <p className="text-sm">Password</p>
+        <Input name="password" onChange={onChange} type="password" />
       </div>
       <button
         onClick={signUp}
@@ -31,7 +21,7 @@ function SignUp({ setUiState, signUp, onChange }) {
       <p className="mt-12 text-sm font-light">
         Already have an account?
         <span
-          className="cursor-pointer text-pink-600"
+          className="cursor-pointer text-pink-600 hover:underline"
           onClick={() => setUiState("signIn")}
         >
           {" "}
