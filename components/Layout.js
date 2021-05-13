@@ -1,4 +1,5 @@
 import Sidebar from "./Sidebar";
+import Keyboard from "./KeyBoard/Keyboard";
 
 const Layout = ({ children }) => {
   return (
@@ -6,7 +7,8 @@ const Layout = ({ children }) => {
       <div>
         <main className="flex">
           <Sidebar />
-          {children}
+          {/* {children} */}
+          <Keyboard />
         </main>
       </div>
     </>
